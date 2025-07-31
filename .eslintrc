@@ -1,0 +1,11 @@
+{
+  "extends": ["important-stuff", "plugin:prettier/recommended"],
+  "parser": "@babel/eslint-parser",
+  "rules": {
+    // Desativa todas as regras (substitua por "off" ou 0)
+    "semi": "off",
+    "quotes": "off",
+    "indent": "off"
+    // Adicione outras regras que deseja desabilitar
+  }
+}
