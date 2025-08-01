@@ -6,11 +6,11 @@ import {
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
 
-const publicRoutes = ['/', '/login'];
-const token = sessionStorage.getItem('token');
+const publicRoutes = ["/", "/login"];
+const token = sessionStorage.getItem("token");
 
 if (!token && !publicRoutes.includes(window.location.pathname)) {
-  navigateToUrl('/login');
+  navigateToUrl("/login");
 }
 
 const routes = constructRoutes(microfrontendLayout);
