@@ -7,8 +7,8 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "prepare": "husky install",
-    "build": "concurrently npm:build:*",
-    "build:webpack": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "build:webpack": "webpack --config webpack.config.mjs --mode=production"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
@@ -22,7 +22,6 @@
     "eslint-config-important-stuff": "^1.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
-    "html-webpack-plugin": "^5.3.2",
     "husky": "^7.0.2",
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
@@ -30,10 +29,11 @@
     "pretty-quick": "^3.1.1",
     "serve": "^13.0.0",
     "webpack": "^5.89.0",
-    "webpack-cli": "^4.10.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
     "webpack-config-single-spa": "^8.0.0",
-    "webpack-dev-server": "^4.0.0",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.10.0",
+    "html-webpack-plugin": "^5.5.3"
   },
   "dependencies": {
     "@types/jest": "^27.0.1",
