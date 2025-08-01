@@ -27,10 +27,6 @@
 
   <!-- Preload critical resources -->
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js">
-  <% if (!isLocal) { %>
-    <link rel="modulepreload" href="https://main.d16vqupwd4xk7j.amplifyapp.com/tc2-menu.js">
-    <link rel="modulepreload" href="https://main.d2mgqj191to161.amplifyapp.com/tc2-login.js">
-  <% } %>
 
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@5.1.1/dist/import-map-overrides.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector@2.0.1/lib/import-map-injector.js"></script>

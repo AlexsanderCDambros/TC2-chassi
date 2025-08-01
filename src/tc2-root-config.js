@@ -11,6 +11,8 @@ const token = sessionStorage.getItem("token");
 
 if (!token && !publicRoutes.includes(window.location.pathname)) {
   navigateToUrl("/login");
+} else if (token && publicRoutes.includes(window.location.pathname)) {
+  navigateToUrl("/inicio");
 }
 
 const routes = constructRoutes(microfrontendLayout);
