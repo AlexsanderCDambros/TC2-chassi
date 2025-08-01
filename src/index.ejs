@@ -4,56 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Root Config</title>
+  <title>TC2</title>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: localhost:*; script-src 'unsafe-inline' 'unsafe-eval' https: localhost:*; connect-src https: localhost:* ws://localhost:*; style-src 'unsafe-inline' https:; object-src 'none';">
   <meta name="importmap-type" use-injector />
-  <!-- If you wish to turn off import-map-overrides for specific environments (prod), uncomment the line below -->
-  <!-- More info at https://github.com/single-spa/import-map-overrides/blob/main/docs/configuration.md#domain-list -->
-  <!-- <meta name="import-map-overrides-domains" content="denylist:prod.example.com" /> -->
 
-  <!-- Shared dependencies go into this import map -->
+  <!-- Shared dependencies -->
   <script type="injector-importmap">
     {
       "imports": {
         "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js",
         "react": "https://cdn.jsdelivr.net/npm/react@18.2.0/+esm",
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm",
-        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client/+esm"
+        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client/+esm",
+        "@tc2/root-config": "<%= isLocal ? '//localhost:9000/tc2-root-config.js' : '//localhost:9000/tc2-root-config.js' %>",
+        "@tc2/menu": "<%= isLocal ? '//localhost:9001/tc2-menu.js' : '//localhost:9001/tc2-menu.js' %>",
+        "@tc2/login": "<%= isLocal ? '//localhost:9002/tc2-login.js' : '//localhost:9002/tc2-login.js' %>",
+        "@tc2/inicio": "<%= isLocal ? '//localhost:9003/tc2-inicio.js' : '//localhost:9003/tc2-inicio.js' %>",
+        "@tc2/transacoes": "<%= isLocal ? '//localhost:9004/tc2-transacoes.js' : '//localhost:9004/tc2-transacoes.js' %>"
       }
     }
   </script>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js" as="module">
 
-  <!-- Add your organization's prod import map URL to this script's src  -->
-  <!-- <script type="injector-importmap" src="/importmap.json"></script> -->
-
-  <% if (isLocal) { %>
-  <script type="injector-importmap">
-    {
-      "imports": {
-        "@tc2/root-config": "//localhost:9000/tc2-root-config.js",
-        "@tc2/menu": "//localhost:9001/tc2-menu.js",
-        "@tc2/login": "//localhost:9002/tc2-login.js",
-        "@tc2/inicio": "//localhost:9003/tc2-inicio.js",
-        "@tc2/transacoes": "//localhost:9004/tc2-transacoes.js"
-      }
-    }
-  </script>
+  <!-- Preload critical resources -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js">
+  <% if (!isLocal) { %>
+    <link rel="modulepreload" href="https://cdn.yourdomain.com/menu/1.2.3/tc2-menu.js">
+    <link rel="modulepreload" href="https://cdn.yourdomain.com/login/2.0.1/tc2-login.js">
   <% } %>
 
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@5.1.1/dist/import-map-overrides.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector@2.0.1/lib/import-map-injector.js"></script>
 </head>
 <body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <main></main>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <main id="root-container"></main>
+
   <script>
-    window.importMapInjector.initPromise.then(() => {
-      import('@tc2/root-config');
+    // Error handling and monitoring
+    window.addEventListener('error', (event) => {
+      console.error('Global error:', event.error);
+      // Send error to monitoring service
     });
+
+    // Initialize single-spa
+    window.importMapInjector.initPromise
+      .then(() => import('@tc2/root-config'))
+      .catch(err => {
+        console.error('Failed to load root config:', err);
+        document.getElementById('root-container').innerHTML = `
+          <div style="text-align: center; padding: 2rem;">
+            <h1>Application Error</h1>
+            <p>Sorry, we're experiencing technical difficulties.</p>
+            <button onclick="window.location.reload()">Reload Application</button>
+          </div>
+        `;
+      });
   </script>
-  <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+
+  <% if (isLocal) { %>
+    <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+  <% } %>
 </body>
 </html>
