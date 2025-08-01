@@ -1,10 +1,17 @@
-import { registerApplication, start } from "single-spa";
+import { navigateToUrl, registerApplication, start } from "single-spa";
 import {
   constructApplications,
   constructRoutes,
   constructLayoutEngine,
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
+
+const publicRoutes = ['/', '/login'];
+const token = sessionStorage.getItem('token');
+
+if (!token && !publicRoutes.includes(window.location.pathname)) {
+  navigateToUrl('/login');
+}
 
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({

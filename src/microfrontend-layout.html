@@ -16,9 +16,19 @@
   </route>
 
   -->
-
-  <main>
+  <header>
     <application name="@tc2/menu"></application>
+  </header>
+  <main>
+    <route path="/login" exact>
+      <application name="@tc2/login"></application>
+    </route>
+    <route path="/inicio">
+      <application name="@tc2/inicio"></application>
+    </route>
+    <route path="/transacoes">
+      <application name="@tc2/transacoes"></application>
+    </route>
     <route default>
       <application name="@tc2/login"></application>
     </route>
