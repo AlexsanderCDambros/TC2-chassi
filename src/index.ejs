@@ -16,11 +16,11 @@
         "react": "https://cdn.jsdelivr.net/npm/react@18.2.0/+esm",
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm",
         "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client/+esm",
-        "@tc2/root-config": "<%= isLocal ? '//localhost:9000/tc2-root-config.js' : '//localhost:9000/tc2-root-config.js' %>",
+        "@tc2/root-config": "<%= isLocal ? '//localhost:9000/tc2-root-config.js' : 'https://main.d3g4jpztn4edyr.amplifyapp.com/tc2-root-config.js' %>",
         "@tc2/menu": "<%= isLocal ? '//localhost:9001/tc2-menu.js' : 'https://main.d16vqupwd4xk7j.amplifyapp.com/tc2-menu.js' %>",
-        "@tc2/login": "<%= isLocal ? '//localhost:9002/tc2-login.js' : '//localhost:9002/tc2-login.js' %>",
-        "@tc2/inicio": "<%= isLocal ? '//localhost:9003/tc2-inicio.js' : '//localhost:9003/tc2-inicio.js' %>",
-        "@tc2/transacoes": "<%= isLocal ? '//localhost:9004/tc2-transacoes.js' : '//localhost:9004/tc2-transacoes.js' %>"
+        "@tc2/login": "<%= isLocal ? '//localhost:9002/tc2-login.js' : 'http://localhost:9002/tc2-login.js' %>",
+        "@tc2/inicio": "<%= isLocal ? '//localhost:9003/tc2-inicio.js' : 'http://localhost:9003/tc2-inicio.js' %>",
+        "@tc2/transacoes": "<%= isLocal ? '//localhost:9004/tc2-transacoes.js' : 'http://localhost:9004/tc2-transacoes.js' %>"
       }
     }
   </script>
@@ -29,7 +29,7 @@
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/single-spa@6.0.3/lib/es2015/esm/single-spa.min.js">
   <% if (!isLocal) { %>
     <link rel="modulepreload" href="https://main.d16vqupwd4xk7j.amplifyapp.com/tc2-menu.js">
-    <link rel="modulepreload" href="//localhost:9002/tc2-login.js">
+    <link rel="modulepreload" href="http://localhost:9002/tc2-login.js">
   <% } %>
 
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@5.1.1/dist/import-map-overrides.js"></script>
